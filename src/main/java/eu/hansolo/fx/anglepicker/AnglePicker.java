@@ -219,7 +219,7 @@ public class AnglePicker extends Region {
     public double getAngle() { return null == angle ? _angle : angle.get(); }
     public void setAngle(final double angle) {
         if (null == this.angle) {
-            _angle = angle;
+            _angle = angle % 360.0;
             rotate.setAngle(_angle);
             text.setText(String.format(Locale.US, "%.0f\u00b0", _angle));
             text.relocate((size - text.getLayoutBounds().getWidth()) * 0.5, (size - text.getLayoutBounds().getHeight()) * 0.5);
@@ -232,7 +232,7 @@ public class AnglePicker extends Region {
         if (null == angle) {
             angle = new DoublePropertyBase(_angle) {
                 @Override protected void invalidated() {
-                    rotate.setAngle(get());
+                    rotate.setAngle(get() % 360.0);
                     text.setText(String.format(Locale.US, "%.0f\u00b0", get()));
                     text.relocate((size - text.getLayoutBounds().getWidth()) * 0.5, (size - text.getLayoutBounds().getHeight()) * 0.5);
                     textField.setText(String.format(Locale.US, "%.0f\u00b0", get()));
